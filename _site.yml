@@ -1,8 +1,0 @@
-name: "my-website"
-navbar:
-  title: "My Website"
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "Beers and Breweries Case Study"
-      href: Beers-and-Brewery-Case-Study.html
