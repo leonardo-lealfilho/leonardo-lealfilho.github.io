@@ -1,11 +1,19 @@
 ---
-title: "Simple Website"
-author: "Leo"
-date: "3/20/2022"
+title: "My Personal Website"
+author: "Leonardo Leal Filho"
 output: html_document
 ---
 
-# The Simple Yet Awesome Website
-## Note: The 6 lines of text above are the YAML tags
-### We will Knit the RMD to a html file next
-Then push index.html to the github.io repo.
+![](llealfilho.jpg)
+
+# Hello all!
+
+### I am Leo, a student in the SMU's Master of Science in Data Science program!
+
+### I did my undergraduate work at Texas A&M University - Commerce, where I graduated with a Bachelor of Science in Industrial Engineering and a second major in Mathematics.
+
+### I am currently working at Blue Cross and Blue Shield of Texas.
+
+### I was born in Brazil so, as a typical Brazilian, my favorite hobby is playing soccer.  I also enjoy watching movies and playing video games.
+
+### The other tabs represent work/analyses that I have completed.  Please check them out!
