@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Beers and Brewery Case Study</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Beers-and-Brewery-Case-Study.html">Beers and Breweries Case Study</a>
+</li>
+<li>
+  <a href="Attrition.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Beers and Brewery Case Study</h1>
+
+</div>
+
+
+<div id="the-datasets" class="section level2">
+<h2>The Datasets</h2>
+<div id="this-study-seeks-to-find-insightful-and-useful-information-from-two-data-sets.-one-of-the-data-sets-has-features-that-informs-characteristics-of-the-beers-such-as-the-level-of-alcohol-in-the-beer-abv-level-of-bitterness-ibu-and-the-beer-style.-the-second-data-set-identifies-breweries-by-the-name-city-and-state-where-they-are-located." class="section level4">
+<h4>This study seeks to find insightful and useful information from two data sets. One of the data sets has features that informs characteristics of the beers such as the level of alcohol in the beer (ABV), level of bitterness (IBU), and the beer style. The second data set identifies breweries by the name, city and state where they are located.</h4>
+</div>
+<div id="the-abv-and-ibu-of-the-beers-are-the-features-that-will-drive-the-study.-unfortunately-there-are-some-rows-with-missing-values-in-those-feature.-since-they-are-so-valuable-for-the-study-i-have-decided-to-remove-the-rows-with-missing-values-before-moving-forward." class="section level4">
+<h4>The ABV and IBU of the beers are the features that will drive the study. Unfortunately there are some rows with missing values in those feature. Since they are so valuable for the study, I have decided to remove the rows with missing values before moving forward.</h4>
+</div>
+<div id="after-removing-the-rows-with-na-values-the-final-step-in-the-data-wranggling-process-is-to-merge-the-datasets-together-to-make-it-one.-the-final-dataframe-looks-like-this" class="section level4">
+<h4>After removing the rows with NA values, the final step in the Data Wranggling process is to merge the datasets together to make it one. The final dataframe looks like this:</h4>
+<pre><code>##                                   Beer Beer_ID   ABV IBU Brewery_id                   Style Ounces
+## 1                         Bitter Bitch    1979 0.061  60        178 American Pale Ale (APA)   12.0
+## 2                        Lower De Boom    1036 0.099  92        369     American Barleywine    8.4
+## 3                        Fireside Chat    1024 0.079  45        369           Winter Warmer   12.0
+## 4                      Bitter American     876 0.044  42        369 American Pale Ale (APA)   12.0
+## 5 Hell or High Watermelon Wheat (2009)     802 0.049  17        369  Fruit / Vegetable Beer   12.0
+## 6 Hell or High Watermelon Wheat (2009)     801 0.049  17        369  Fruit / Vegetable Beer   12.0
+##                  Brewery          City state
+## 1    18th Street Brewery          Gary    IN
+## 2 21st Amendment Brewery San Francisco    CA
+## 3 21st Amendment Brewery San Francisco    CA
+## 4 21st Amendment Brewery San Francisco    CA
+## 5 21st Amendment Brewery San Francisco    CA
+## 6 21st Amendment Brewery San Francisco    CA</code></pre>
+</div>
+</div>
+<div id="exploratory-data-analysis-eda" class="section level2">
+<h2>Exploratory Data Analysis (EDA)</h2>
+<div id="the-first-question-i-seek-to-answer-is-how-many-breweries-are-there-in-each-state" class="section level4">
+<h4>The first question I seek to answer is how many breweries are there in each state?</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/BreweriesPerStateBarPlot-1.png" width="672" /></p>
+</div>
+<div id="the-bar-plot-above-shows-that-california-oregon-and-washington-state-are-amongst-the-top-6-states-with-the-most-breweries-in-them.-that-would-mean-the-west-coast-have-a-denser-concentration-of-breweries-than-the-east-coast.-the-following-heatmap-can-better-illustrate-that-fact." class="section level4">
+<h4>The bar plot above shows that California, Oregon and Washington state are amongst the top 6 states with the most breweries in them. That would mean the west coast have a denser concentration of breweries than the east coast. The following heatmap can better illustrate that fact.</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="the-heat-map-makes-it-for-a-better-visualization-of-the-geographical-count-of-breweries.-not-only-does-it-show-how-there-is-a-higher-concentration-of-breweries-in-the-west-coast-it-also-shows-that-some-of-the-states-with-the-least-amount-of-breweries-are-in-the-east-coast." class="section level4">
+<h4>The heat map makes it for a better visualization of the geographical count of breweries. Not only does it show how there is a higher concentration of breweries in the west coast, it also shows that some of the states with the least amount of breweries are in the east coast.</h4>
+</div>
+<div id="the-next-step-will-be-to-examine-the-level-of-alcohol-prefered-in-each-state.-for-this-analysis-i-will-assume-that-the-median-value-of-each-beer-is-the-best-measurement-of-center.-by-getting-a-good-measurement-of-center-we-are-getting-values-that-are-more-likely-to-happen.-with-all-of-that-being-said-lets-examine-the-barplot-and-a-heatmap-of-the-median-abv-per-state." class="section level4">
+<h4>The next step will be to examine the level of alcohol prefered in each state. For this analysis I will assume that the median value of each beer is the best measurement of center. By getting a good measurement of center, we are getting values that are more likely to happen. With all of that being said, let’s examine the barplot and a heatmap of the median ABV per state.</h4>
+</div>
+<div id="first-the-barplot" class="section level4">
+<h4>First the barplot</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/ABVBarPlot-1.png" width="672" /></p>
+</div>
+<div id="the-bar-plot-shows-how-the-spread-of-the-median-alcohol-levels-by-state-is-not-big.-this-would-mean-that-since-those-levels-of-alcohol-in-a-beer-are-popular-in-each-state-the-consumers-in-each-state-do-seem-to-agree-that-perhaps-one-of-the-reasons-people-are-buying-beers-is-because-of-the-alcohol-content." class="section level4">
+<h4>The bar plot shows how the spread of the median alcohol levels by state is not big. This would mean that since those levels of alcohol in a beer are popular in each state, the consumers in each state do seem to agree that perhaps one of the reasons people are buying beers is because of the alcohol content.</h4>
+</div>
+<div id="does-the-heat-map-agree-with-that-assessment" class="section level4">
+<h4>Does the heat map agree with that assessment?</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/ABVHeatMap-1.png" width="672" /></p>
+</div>
+<div id="the-abv-heat-map-does-agree-with-the-fact-that-most-states-have-very-similar-levels-of-alcohol-in-the-beers-they-produce.-the-interesting-thing-to-see-in-the-heat-map-is-that-even-though-we-have-seen-earlier-that-there-seems-to-be-more-breweries-in-the-west-coast-than-in-the-east-coast-the-breweries-in-the-east-coast-seems-to-specialize-in-making-beers-with-a-little-higher-alcohol-levels-than-the-west-coast." class="section level4">
+<h4>The ABV heat map does agree with the fact that most states have very similar levels of alcohol in the beers they produce. The interesting thing to see in the heat map is that even though we have seen earlier that there seems to be more breweries in the west coast than in the east coast, the breweries in the east coast seems to specialize in making beers with a little higher alcohol levels than the west coast.</h4>
+</div>
+<div id="now-it-is-time-to-analyze-the-ibu-content-of-the-beers-per-state." class="section level4">
+<h4>Now it is time to analyze the IBU content of the beers per state.</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/IBUBarPlot-1.png" width="672" /></p>
+</div>
+<div id="contrary-to-the-abv-the-ibu-bar-plot-shows-that-there-is-more-of-a-difference-between-the-median-levels-of-ibu-being-produced-in-each-state.-perhaps-there-is-a-regional-preference-for-bitterness-in-the-beer." class="section level4">
+<h4>Contrary to the ABV, the IBU bar plot shows that there is more of a difference between the median levels of IBU being produced in each state. Perhaps there is a regional preference for bitterness in the beer.</h4>
+</div>
+<div id="here-is-the-heat-map" class="section level4">
+<h4>Here is the heat map!</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/IBUHeatMap-1.png" width="672" /></p>
+</div>
+<div id="interestingly-the-map-again-shows-that-the-states-that-favors-a-more-bitter-beer-are-located-in-the-east-coast-or-near-it." class="section level4">
+<h4>Interestingly, the map again shows that the states that favors a more bitter beer are located in the east coast or near it.</h4>
+</div>
+<div id="next-i-will-check-to-see-if-there-is-a-relationship-between-abv-and-ibu." class="section level4">
+<h4>Next, I will check to see if there is a relationship between ABV and IBU.</h4>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/ABVvs.IBU-1.png" width="672" /></p>
+</div>
+<div id="the-scatter-plot-shows-a-positive-correlation.-that-is-to-say-the-more-bitter-the-beer-may-be-the-higher-the-alcohol-level.-such-is-the-case-with-florida-georgia-west-virginia-and-maine." class="section level4">
+<h4>The scatter plot shows a positive correlation. That is to say the more bitter the beer may be the higher the alcohol level. Such is the case with Florida, Georgia, West Virginia, and Maine.</h4>
+</div>
+<div id="after-observing-the-bar-plots-and-the-heat-maps-the-conclussion-i-would-make-is-that-though-the-the-west-coast-has-a-higher-density-of-breweries-the-beers-produced-in-the-east-coast-seems-to-have-higher-levels-of-alcohol-and-bitterness.-the-correlation-shows-that-the-abv-and-ibu-have-a-positive-correlation-and-that-explains-the-heat-maps-and-the-bar-plots.-in-the-first-bar-plot-and-heat-map-we-can-see-that-there-are-more-breweries-in-the-west-coast-and-they-mostly-produce-beers-with-comperatively-lower-levels-of-abv-and-ibu.-the-oposite-can-be-seen-on-the-east-coast-concluding-that-the-places-with-least-breweries-in-them-tend-to-produce-beers-with-higher-levels-of-abv-and-ibu." class="section level4">
+<h4>After observing the bar plots and the heat maps, The conclussion I would make is that though the the west coast has a higher density of breweries, the beers produced in the east coast seems to have higher levels of alcohol and bitterness. The correlation shows that the ABV and IBU have a positive correlation, and that explains the heat maps and the bar plots. In the first bar plot and heat map we can see that there are more breweries in the west coast, and they mostly produce beers with comperatively lower levels of ABV and IBU. The oposite can be seen on the east coast, concluding that the places with least breweries in them tend to produce beers with higher levels of ABV and IBU.</h4>
+</div>
+</div>
+<div id="machine-learning" class="section level2">
+<h2>Machine Learning</h2>
+<div id="now-i-will-shift-the-study-to-see-if-machine-learning.-the-machine-learning-used-will-be-k-nearest-neighbors.-the-intent-will-be-to-see-if-i-can-build-a-model-that-have-a-good-chance-of-distiguishing-an-india-pale-ales-ipa-style-of-beer-from-other-ale-styles." class="section level4">
+<h4>Now I will shift the study to see if machine learning. The machine learning used will be K Nearest Neighbors. The intent will be to see if I can build a model that have a good chance of distiguishing an India Pale Ales (IPA) style of beer from other Ale styles.</h4>
+</div>
+<div id="now-that-the-dataset-is-ready-i-will-begin-the-process-of-building-the-model.-first-though-a-scatter-plot-should-demonstrate-a-if-there-is-separation-between-the-ale-groups-ipa-and-other." class="section level4">
+<h4>Now that the dataset is ready I will begin the process of building the model. First, though, a scatter plot should demonstrate a if there is separation between the Ale groups (IPA and Other).</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/AleScatterPlot-1.png" width="672" /></p>
+</div>
+<div id="the-scatter-plot-shows-that-there-is-a-quite-visible-separation-between-the-ipa-and-the-other-types-of-ales-because-the-ipas-seem-to-have-higher-levels-of-both-the-abv-and-ibu.-with-that-in-mind-let-me-now-build-the-knn-model." class="section level4">
+<h4>The scatter plot shows that there is a quite visible separation between the IPA and the other types of Ales because the IPAs seem to have higher levels of both the ABV and IBU. With that in mind, let me now build the knn model.</h4>
+</div>
+<div id="now-that-the-model-has-been-built-lets-investigate-its-best-accuracy-iteration." class="section level4">
+<h4>Now that the model has been built, let’s investigate its best accuracy iteration.</h4>
+<pre><code>## The accuracy of the optimal model is:  0.9222615</code></pre>
+<pre><code>## The Sensitivity of the model is:  0.8942308</code></pre>
+<pre><code>## The Specificity of the model is:  0.9385475</code></pre>
+</div>
+<div id="the-accuracy-looks-really-good-at-92-with-the-sensitivity-and-specificity-being-89-and-94-respectively.-this-indicates-that-the-model-is-quite-accurate-and-its-ability-to-classify-what-is-not-an-ipa-into-other-is-what-helps.-in-other-words-it-is-able-to-classify-ipa-with-a-nice-rate-of-accuracy-without-trying-to-overfit-the-ales-that-are-not-ipas." class="section level4">
+<h4>The accuracy looks really good at 92%, with the sensitivity and specificity being 89% and 94% respectively. This indicates that the model is quite accurate and its ability to classify what is not an IPA into Other is what helps. In other words, it is able to classify IPA with a nice rate of accuracy without trying to overfit the Ales that are not IPAs.</h4>
+</div>
+</div>
+<div id="additional-observation" class="section level2">
+<h2>Additional Observation</h2>
+<div id="additionally-i-decided-to-study-the-top-styles-of-beers-and-what-opportunities-they-may-provide.-first-i-wanted-to-see-how-many-total-styles-there-is." class="section level4">
+<h4>Additionally, I decided to study the top styles of beers and what opportunities they may provide. First I wanted to see how many total styles there is.</h4>
+<pre><code>## [1] 91</code></pre>
+</div>
+<div id="from-the-91-different-styles-of-beers-i-will-see-which-styles-are-the-10-most-popular-by-checking-how-many-different-beers-there-are-for-each-style.-after-that-i-will-plot-them-comparing-it-to-the-other-81-styles-in-terms-of-popularity.-popularity-in-this-case-being-the-amount-of-beers-being-produced-with-each-of-the-styles." class="section level4">
+<h4>From the 91 different styles of beers, I will see which styles are the 10 most popular by checking how many different beers there are for each style. After that, I will plot them comparing it to the other 81 styles in terms of popularity. Popularity in this case being the amount of beers being produced with each of the styles.</h4>
+<pre><code>## Warning in Style != Top.10.Styles.Names: longer object length is not a multiple of shorter object length</code></pre>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/style-1.png" width="672" /></p>
+</div>
+<div id="the-top-10-styles-of-beers-are-more-popular-than-the-remainder-81-this-means-there-are-more-beers-under-the-top-10-styles-than-there-are-under-81-other-styles.-now-it-is-time-to-check-which-of-the-10-styles-is-more-popular-and-their-abv-and-ibu-levels." class="section level4">
+<h4>The top 10 styles of beers are more popular than the remainder 81! This means there are more beers under the top 10 styles than there are under 81 other styles. Now it is time to check which of the 10 styles is more popular and their ABV and IBU levels.</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="of-the-top-10-styles-the-most-popular-being-the-american-ipa-which-has-over-20-of-the-total-beers.-the-american-pale-ale-apa-has-over-10-which-means-over-one-third-of-the-beers-produced-are-either-american-ipa-and-american-pale-ale-apa.-if-budweiser-is-considering-getting-in-the-ale-market-the-american-pale-ale-or-the-american-ipa-are-two-styles-that-are-quite-popular-in-the-u.s." class="section level4">
+<h4>Of the top 10 styles the most popular being the American IPA, which has over 20% of the total beers. The American Pale Ale (APA) has over 10%, which means over one third of the beers produced are either American IPA and American Pale Ale (APA). If Budweiser is considering getting in the Ale market, The American Pale Ale or the American IPA are two styles that are quite popular in the U.S.</h4>
+</div>
+<div id="now-to-check-their-popularity-in-each-specific-state-with-the-heat-map." class="section level4">
+<h4>Now to check their popularity in each specific state with the heat map.</h4>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/AmericanPaleAleHeatMap-1.png" width="672" /></p>
+<p><img src="Beers-and-Brewery-Case-Study_files/figure-html/AmericanIPAHeatMap-1.png" width="672" /></p>
+</div>
+<div id="though-the-american-pale-ale-is-the-most-popular-style-states-like-new-mexico-oklahoma-and-south-carolina-do-not-seem-to-have-many-beers-of-that-style-being-produced-there.-while-for-the-american-ipa-nevada-and-arkansa-seem-to-be-good-options-to-introduce-a-new-product-line." class="section level4">
+<h4>Though the American Pale Ale is the most popular style, states like New Mexico, Oklahoma and South Carolina do not seem to have many beers of that style being produced there. While for the American IPA Nevada and Arkansa seem to be good options to introduce a new product line.</h4>
+</div>
+</div>
+<div id="thank-you-for-your-attention-it-was-a-great-pleasure-to-work-with-these-data-sets-and-i-look-forward-to-more-in-the-mean-time-i-am-open-to-explain-any-point-of-confusion-just-reach-out." class="section level2">
+<h2>Thank you for your attention! It was a great pleasure to work with these data sets, and I look forward to more! In the mean time I am open to explain any point of confusion, just reach out.</h2>
+<pre><code>## R version 4.1.2 (2021-11-01)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19044)
+## 
+## Matrix products: default
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252  LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] e1071_1.7-9     caret_6.0-90    lattice_0.20-45 class_7.3-20    gridExtra_2.3   ggthemes_4.2.4 
+##  [7] plotly_4.10.0   usmap_0.5.2     forcats_0.5.1   stringr_1.4.0   purrr_0.3.4     readr_2.1.1    
+## [13] tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1 tidyr_1.1.4     dplyr_1.0.7     rmarkdown_2.13 
+## 
+## loaded via a namespace (and not attached):
+##  [1] nlme_3.1-153         fs_1.5.2             lubridate_1.8.0      httr_1.4.2           tools_4.1.2         
+##  [6] backports_1.4.1      bslib_0.3.1          utf8_1.2.2           R6_2.5.1             rpart_4.1-15        
+## [11] mgcv_1.8-38          DBI_1.1.2            lazyeval_0.2.2       colorspace_2.0-2     nnet_7.3-16         
+## [16] withr_2.4.3          tidyselect_1.1.1     compiler_4.1.2       cli_3.1.1            rvest_1.0.2         
+## [21] xml2_1.3.3           labeling_0.4.2       sass_0.4.0           scales_1.1.1         proxy_0.4-26        
+## [26] digest_0.6.29        pkgconfig_2.0.3      htmltools_0.5.2      parallelly_1.30.0    highr_0.9           
+## [31] dbplyr_2.1.1         fastmap_1.1.0        htmlwidgets_1.5.4    rlang_0.4.11         readxl_1.3.1        
+## [36] rstudioapi_0.13      farver_2.1.0         jquerylib_0.1.4      generics_0.1.1       jsonlite_1.7.3      
+## [41] ModelMetrics_1.2.2.2 magrittr_2.0.1       Matrix_1.3-4         Rcpp_1.0.7           munsell_0.5.0       
+## [46] fansi_0.5.0          lifecycle_1.0.1      pROC_1.18.0          stringi_1.7.6        yaml_2.3.5          
+## [51] MASS_7.3-54          plyr_1.8.6           recipes_0.1.17       grid_4.1.2           parallel_4.1.2      
+## [56] listenv_0.8.0        crayon_1.4.2         haven_2.4.3          splines_4.1.2        hms_1.1.1           
+## [61] knitr_1.37           pillar_1.6.5         stats4_4.1.2         reshape2_1.4.4       future.apply_1.8.1  
+## [66] codetools_0.2-18     reprex_2.0.1         glue_1.4.2           evaluate_0.14        data.table_1.14.2   
+## [71] modelr_0.1.8         vctrs_0.3.8          tzdb_0.2.0           foreach_1.5.2        cellranger_1.1.0    
+## [76] gtable_0.3.0         future_1.23.0        assertthat_0.2.1     xfun_0.30            gower_0.2.2         
+## [81] prodlim_2019.11.13   broom_0.7.11         rsconnect_0.8.25     survival_3.2-13      viridisLite_0.4.0   
+## [86] timeDate_3043.102    iterators_1.0.14     lava_1.6.10          globals_0.14.0       ellipsis_0.3.2      
+## [91] ipred_0.9-12</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
