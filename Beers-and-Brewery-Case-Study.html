@@ -249,9 +249,6 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="Beers-and-Brewery-Case-Study.html">Beers and Breweries Case Study</a>
-</li>
-<li>
   <a href="Attrition.html">Attrition Case Study</a>
 </li>
       </ul>
@@ -281,20 +278,20 @@ $(document).ready(function () {
 </div>
 <div id="after-removing-the-rows-with-na-values-the-final-step-in-the-data-wranggling-process-is-to-merge-the-datasets-together-to-make-it-one.-the-final-dataframe-looks-like-this" class="section level4">
 <h4>After removing the rows with NA values, the final step in the Data Wranggling process is to merge the datasets together to make it one. The final dataframe looks like this:</h4>
-<pre><code>##                                   Beer Beer_ID   ABV IBU Brewery_id                   Style Ounces
-## 1                         Bitter Bitch    1979 0.061  60        178 American Pale Ale (APA)   12.0
-## 2                        Lower De Boom    1036 0.099  92        369     American Barleywine    8.4
-## 3                        Fireside Chat    1024 0.079  45        369           Winter Warmer   12.0
-## 4                      Bitter American     876 0.044  42        369 American Pale Ale (APA)   12.0
-## 5 Hell or High Watermelon Wheat (2009)     802 0.049  17        369  Fruit / Vegetable Beer   12.0
-## 6 Hell or High Watermelon Wheat (2009)     801 0.049  17        369  Fruit / Vegetable Beer   12.0
-##                  Brewery          City state
-## 1    18th Street Brewery          Gary    IN
-## 2 21st Amendment Brewery San Francisco    CA
-## 3 21st Amendment Brewery San Francisco    CA
-## 4 21st Amendment Brewery San Francisco    CA
-## 5 21st Amendment Brewery San Francisco    CA
-## 6 21st Amendment Brewery San Francisco    CA</code></pre>
+<pre><code>##                                   Beer Beer_ID   ABV IBU Brewery_id                   Style
+## 1                         Bitter Bitch    1979 0.061  60        178 American Pale Ale (APA)
+## 2                        Lower De Boom    1036 0.099  92        369     American Barleywine
+## 3                        Fireside Chat    1024 0.079  45        369           Winter Warmer
+## 4                      Bitter American     876 0.044  42        369 American Pale Ale (APA)
+## 5 Hell or High Watermelon Wheat (2009)     802 0.049  17        369  Fruit / Vegetable Beer
+## 6 Hell or High Watermelon Wheat (2009)     801 0.049  17        369  Fruit / Vegetable Beer
+##   Ounces                Brewery          City state
+## 1   12.0    18th Street Brewery          Gary    IN
+## 2    8.4 21st Amendment Brewery San Francisco    CA
+## 3   12.0 21st Amendment Brewery San Francisco    CA
+## 4   12.0 21st Amendment Brewery San Francisco    CA
+## 5   12.0 21st Amendment Brewery San Francisco    CA
+## 6   12.0 21st Amendment Brewery San Francisco    CA</code></pre>
 </div>
 </div>
 <div id="exploratory-data-analysis-eda" class="section level2">
@@ -383,7 +380,8 @@ $(document).ready(function () {
 </div>
 <div id="from-the-91-different-styles-of-beers-i-will-see-which-styles-are-the-10-most-popular-by-checking-how-many-different-beers-there-are-for-each-style.-after-that-i-will-plot-them-comparing-it-to-the-other-81-styles-in-terms-of-popularity.-popularity-in-this-case-being-the-amount-of-beers-being-produced-with-each-of-the-styles." class="section level4">
 <h4>From the 91 different styles of beers, I will see which styles are the 10 most popular by checking how many different beers there are for each style. After that, I will plot them comparing it to the other 81 styles in terms of popularity. Popularity in this case being the amount of beers being produced with each of the styles.</h4>
-<pre><code>## Warning in Style != Top.10.Styles.Names: longer object length is not a multiple of shorter object length</code></pre>
+<pre><code>## Warning in Style != Top.10.Styles.Names: longer object length is not a multiple of shorter object
+## length</code></pre>
 <p><img src="Beers-and-Brewery-Case-Study_files/figure-html/style-1.png" width="672" /></p>
 </div>
 <div id="the-top-10-styles-of-beers-are-more-popular-than-the-remainder-81-this-means-there-are-more-beers-under-the-top-10-styles-than-there-are-under-81-other-styles.-now-it-is-time-to-check-which-of-the-10-styles-is-more-popular-and-their-abv-and-ibu-levels." class="section level4">
@@ -419,31 +417,35 @@ $(document).ready(function () {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] scales_1.1.1    GGally_2.1.2    e1071_1.7-9     caret_6.0-90    lattice_0.20-45 class_7.3-20   
-##  [7] gridExtra_2.3   ggthemes_4.2.4  plotly_4.10.0   usmap_0.5.2     forcats_0.5.1   stringr_1.4.0  
-## [13] purrr_0.3.4     readr_2.1.1     tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1 tidyr_1.1.4    
-## [19] dplyr_1.0.7     rmarkdown_2.13 
+##  [1] usmap_0.5.2     scales_1.1.1    caret_6.0-90    lattice_0.20-45 e1071_1.7-9    
+##  [6] class_7.3-20    plotly_4.10.0   gridExtra_2.3   ggthemes_4.2.4  GGally_2.1.2   
+## [11] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.7     purrr_0.3.4     readr_2.1.1    
+## [16] tidyr_1.1.4     tibble_3.1.4    ggplot2_3.3.5   tidyverse_1.3.1 rmarkdown_2.13 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] nlme_3.1-153         fs_1.5.2             lubridate_1.8.0      RColorBrewer_1.1-2   httr_1.4.2          
-##  [6] tools_4.1.2          backports_1.4.1      bslib_0.3.1          utf8_1.2.2           R6_2.5.1            
-## [11] rpart_4.1-15         mgcv_1.8-38          DBI_1.1.2            lazyeval_0.2.2       colorspace_2.0-2    
-## [16] nnet_7.3-16          withr_2.4.3          tidyselect_1.1.1     compiler_4.1.2       cli_3.1.1           
-## [21] rvest_1.0.2          xml2_1.3.3           labeling_0.4.2       sass_0.4.0           proxy_0.4-26        
-## [26] digest_0.6.29        pkgconfig_2.0.3      htmltools_0.5.2      parallelly_1.30.0    highr_0.9           
-## [31] dbplyr_2.1.1         fastmap_1.1.0        htmlwidgets_1.5.4    rlang_0.4.11         readxl_1.3.1        
-## [36] rstudioapi_0.13      farver_2.1.0         jquerylib_0.1.4      generics_0.1.1       jsonlite_1.7.3      
-## [41] ModelMetrics_1.2.2.2 magrittr_2.0.1       Matrix_1.3-4         Rcpp_1.0.7           munsell_0.5.0       
-## [46] fansi_0.5.0          lifecycle_1.0.1      pROC_1.18.0          stringi_1.7.6        yaml_2.3.5          
-## [51] MASS_7.3-54          plyr_1.8.6           recipes_0.1.17       grid_4.1.2           parallel_4.1.2      
-## [56] listenv_0.8.0        crayon_1.4.2         haven_2.4.3          splines_4.1.2        hms_1.1.1           
-## [61] knitr_1.37           pillar_1.6.5         stats4_4.1.2         reshape2_1.4.4       future.apply_1.8.1  
-## [66] codetools_0.2-18     reprex_2.0.1         glue_1.4.2           evaluate_0.14        data.table_1.14.2   
-## [71] modelr_0.1.8         vctrs_0.3.8          tzdb_0.2.0           foreach_1.5.2        cellranger_1.1.0    
-## [76] gtable_0.3.0         reshape_0.8.8        future_1.23.0        assertthat_0.2.1     xfun_0.30           
-## [81] gower_0.2.2          prodlim_2019.11.13   broom_0.7.11         rsconnect_0.8.25     survival_3.2-13     
-## [86] viridisLite_0.4.0    timeDate_3043.102    iterators_1.0.14     lava_1.6.10          globals_0.14.0      
-## [91] ellipsis_0.3.2       ipred_0.9-12</code></pre>
+##  [1] nlme_3.1-153         fs_1.5.2             lubridate_1.8.0      RColorBrewer_1.1-2  
+##  [5] httr_1.4.2           tools_4.1.2          backports_1.4.1      bslib_0.3.1         
+##  [9] utf8_1.2.2           R6_2.5.1             rpart_4.1-15         mgcv_1.8-38         
+## [13] DBI_1.1.2            lazyeval_0.2.2       colorspace_2.0-2     nnet_7.3-16         
+## [17] withr_2.4.3          tidyselect_1.1.1     compiler_4.1.2       cli_3.1.1           
+## [21] rvest_1.0.2          xml2_1.3.3           labeling_0.4.2       sass_0.4.0          
+## [25] proxy_0.4-26         digest_0.6.29        pkgconfig_2.0.3      htmltools_0.5.2     
+## [29] parallelly_1.30.0    highr_0.9            dbplyr_2.1.1         fastmap_1.1.0       
+## [33] htmlwidgets_1.5.4    rlang_0.4.11         readxl_1.3.1         rstudioapi_0.13     
+## [37] farver_2.1.0         jquerylib_0.1.4      generics_0.1.1       jsonlite_1.7.3      
+## [41] ModelMetrics_1.2.2.2 magrittr_2.0.1       Matrix_1.3-4         Rcpp_1.0.7          
+## [45] munsell_0.5.0        fansi_0.5.0          lifecycle_1.0.1      pROC_1.18.0         
+## [49] stringi_1.7.6        yaml_2.3.5           MASS_7.3-54          plyr_1.8.6          
+## [53] recipes_0.1.17       grid_4.1.2           parallel_4.1.2       listenv_0.8.0       
+## [57] crayon_1.4.2         haven_2.4.3          splines_4.1.2        hms_1.1.1           
+## [61] knitr_1.37           pillar_1.6.5         stats4_4.1.2         reshape2_1.4.4      
+## [65] future.apply_1.8.1   codetools_0.2-18     reprex_2.0.1         glue_1.4.2          
+## [69] evaluate_0.14        data.table_1.14.2    modelr_0.1.8         vctrs_0.3.8         
+## [73] tzdb_0.2.0           foreach_1.5.2        cellranger_1.1.0     gtable_0.3.0        
+## [77] future_1.23.0        reshape_0.8.8        assertthat_0.2.1     xfun_0.30           
+## [81] gower_0.2.2          prodlim_2019.11.13   broom_0.7.11         survival_3.2-13     
+## [85] viridisLite_0.4.0    timeDate_3043.102    iterators_1.0.14     lava_1.6.10         
+## [89] globals_0.14.0       ellipsis_0.3.2       ipred_0.9-12</code></pre>
 </div>
 
 

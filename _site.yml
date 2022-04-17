@@ -4,7 +4,5 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Beers and Breweries Case Study"
-      href: Beers-and-Brewery-Case-Study.html
     - text: "Attrition Case Study"
       href: Attrition.html
