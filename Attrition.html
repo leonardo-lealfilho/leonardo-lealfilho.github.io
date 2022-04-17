@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Leonardo Leal Filho" />
+
+
+<title>Case Study 2</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Beers-and-Brewery-Case-Study.html">Beers and Breweries Case Study</a>
+</li>
+<li>
+  <a href="Attrition.html">Attrition Case Study</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Case Study 2</h1>
+<h4 class="author">Leonardo Leal Filho</h4>
+<h4 class="date">4/1/2022</h4>
+
+</div>
+
+
+<div id="case-study-2-attrition" class="section level1">
+<h1>Case Study 2: Attrition</h1>
+<div id="attrition-is-when-an-employee-voluntarily-leaves-a-company.-since-the-employee-is-the-one-who-decided-to-terminate-the-relationship-with-the-company-such-actions-can-be-costly-for-a-company-who-would-then-need-to-replace-that-talent.-this-project-seeks-to-find-features-that-could-be-useful-for-understanding-employees-decision-to-leave-the-company." class="section level4">
+<h4>Attrition is when an employee voluntarily leaves a company. Since the employee is the one who decided to terminate the relationship with the company, such actions can be costly for a company who would then need to replace that talent. This project seeks to find features that could be useful for understanding employee’s decision to leave the company.</h4>
+</div>
+<div id="data-wranggling" class="section level2">
+<h2>Data Wranggling</h2>
+<div id="the-first-step-of-this-study-is-to-check-the-data-set-and-see-how-it-is-built." class="section level4">
+<h4>The first step of this study is to check the data set and see how it is built.</h4>
+</div>
+<div id="the-dataset" class="section level3">
+<h3>The Dataset</h3>
+<div id="first-i-want-to-check-the-dimmension-of-the-data-set-to-see-how-many-data-points-and-features-there-is." class="section level4">
+<h4>First I want to check the dimmension of the data set to see how many data points and features there is.</h4>
+<pre class="r"><code># The dimensions of the data set
+dim(df)</code></pre>
+<pre><code>## [1] 870  36</code></pre>
+</div>
+<div id="the-data-set-is-composed-of-870-data-points-representing-the-different-employees-and-36-features.-now-i-will-check-the-structure-and-the-summary-of-the-data-set." class="section level4">
+<h4>The data set is composed of 870 data points, representing the different employees, and 36 features. Now I will check the structure and the summary of the data set.</h4>
+<pre class="r"><code># Checking the structure
+str(df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    870 obs. of  36 variables:
+##  $ ID                      : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Age                     : int  32 40 35 32 24 27 41 37 34 34 ...
+##  $ Attrition               : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ BusinessTravel          : chr  &quot;Travel_Rarely&quot; &quot;Travel_Rarely&quot; &quot;Travel_Frequently&quot; &quot;Travel_Rarely&quot; ...
+##  $ DailyRate               : int  117 1308 200 801 567 294 1283 309 1333 653 ...
+##  $ Department              : chr  &quot;Sales&quot; &quot;Research &amp; Development&quot; &quot;Research &amp; Development&quot; &quot;Sales&quot; ...
+##  $ DistanceFromHome        : int  13 14 18 1 2 10 5 10 10 10 ...
+##  $ Education               : int  4 3 2 4 1 2 5 4 4 4 ...
+##  $ EducationField          : chr  &quot;Life Sciences&quot; &quot;Medical&quot; &quot;Life Sciences&quot; &quot;Marketing&quot; ...
+##  $ EmployeeCount           : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ EmployeeNumber          : int  859 1128 1412 2016 1646 733 1448 1105 1055 1597 ...
+##  $ EnvironmentSatisfaction : int  2 3 3 3 1 4 2 4 3 4 ...
+##  $ Gender                  : chr  &quot;Male&quot; &quot;Male&quot; &quot;Male&quot; &quot;Female&quot; ...
+##  $ HourlyRate              : int  73 44 60 48 32 32 90 88 87 92 ...
+##  $ JobInvolvement          : int  3 2 3 3 3 3 4 2 3 2 ...
+##  $ JobLevel                : int  2 5 3 3 1 3 1 2 1 2 ...
+##  $ JobRole                 : chr  &quot;Sales Executive&quot; &quot;Research Director&quot; &quot;Manufacturing Director&quot; &quot;Sales Executive&quot; ...
+##  $ JobSatisfaction         : int  4 3 4 4 4 1 3 4 3 3 ...
+##  $ MaritalStatus           : chr  &quot;Divorced&quot; &quot;Single&quot; &quot;Single&quot; &quot;Married&quot; ...
+##  $ MonthlyIncome           : int  4403 19626 9362 10422 3760 8793 2127 6694 2220 5063 ...
+##  $ MonthlyRate             : int  9250 17544 19944 24032 17218 4809 5561 24223 18410 15332 ...
+##  $ NumCompaniesWorked      : int  2 1 2 1 1 1 2 2 1 1 ...
+##  $ Over18                  : chr  &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; &quot;Y&quot; ...
+##  $ OverTime                : chr  &quot;No&quot; &quot;No&quot; &quot;No&quot; &quot;No&quot; ...
+##  $ PercentSalaryHike       : int  11 14 11 19 13 21 12 14 19 14 ...
+##  $ PerformanceRating       : int  3 3 3 3 3 4 3 3 3 3 ...
+##  $ RelationshipSatisfaction: int  3 1 3 3 3 3 1 3 4 2 ...
+##  $ StandardHours           : int  80 80 80 80 80 80 80 80 80 80 ...
+##  $ StockOptionLevel        : int  1 0 0 2 0 2 0 3 1 1 ...
+##  $ TotalWorkingYears       : int  8 21 10 14 6 9 7 8 1 8 ...
+##  $ TrainingTimesLastYear   : int  3 2 2 3 2 4 5 5 2 3 ...
+##  $ WorkLifeBalance         : int  2 4 3 3 3 2 2 3 3 2 ...
+##  $ YearsAtCompany          : int  5 20 2 14 6 9 4 1 1 8 ...
+##  $ YearsInCurrentRole      : int  2 7 2 10 3 7 2 0 1 2 ...
+##  $ YearsSinceLastPromotion : int  0 4 2 5 1 1 0 0 0 7 ...
+##  $ YearsWithCurrManager    : int  3 9 2 7 3 7 3 0 0 7 ...</code></pre>
+</div>
+<div id="the-structure-shows-that-there-are-more-numerical-features-than-there-are-categorical.-the-summary-shows-that-some-of-the-numerical-features-could-be-understood-as-categorical-because-they-have-very-low-range-such-as-1-to-4-or-1-to-5-in-some-cases.-the-other-detail-is-that-features-like-employeecount-and-standardhours-have-the-same-value-for-all-of-the-datapoints-so-their-use-is-questionable-as-far-as-their-ability-to-detect-attrition-the-information-that-they-offer-is-that-each-data-point-is-representative-of-a-single-employee-and-that-the-standard-working-hours-for-all-employees-is-the-same-80-hours." class="section level4">
+<h4>The structure shows that there are more numerical features than there are categorical. The summary shows that some of the numerical features could be understood as categorical because they have very low range, such as 1 to 4 or 1 to 5 in some cases. The other detail is that features like EmployeeCount and StandardHours have the same value for all of the datapoints so their use is questionable as far as their ability to detect attrition, The information that they offer is that each data point is representative of a single employee and that the standard working hours for all employees is the same 80 hours.</h4>
+</div>
+<div id="the-good-news-about-this-initial-data-exploration-is-the-satisfaction-to-know-that-there-are-no-missing-values.-because-of-that-i-do-not-see-a-need-to-make-any-changes-to-the-data-set." class="section level4">
+<h4>The good news about this initial data exploration is the satisfaction to know that there are no missing values. Because of that, I do not see a need to make any changes to the data set.</h4>
+</div>
+</div>
+</div>
+<div id="exploratory-data-analysis" class="section level2">
+<h2>Exploratory Data Analysis</h2>
+<div id="keeping-in-mind-that-the-goal-of-this-project-is-to-see-which-features-can-help-detect-the-cause-of-attrition-the-first-step-i-choose-to-do-for-this-analysis-is-to-compare-the-percent-of-those-who-left-and-those-who-stayed.-for-that-a-pie-chart-will-sufice." class="section level4">
+<h4>Keeping in mind that the goal of this project is to see which features can help detect the cause of attrition, the first step I choose to do for this analysis is to compare the percent of those who left and those who stayed. For that a pie chart will sufice.</h4>
+<p><img src="Attrition_files/figure-html/piechart-1.png" width="672" /></p>
+</div>
+<div id="the-pie-chart-shows-that-only-16-percent-of-the-employees-in-this-data-set-have-voluntarily-left-the-company.-because-only-such-a-small-proportion-of-the-data-set-is-yes-under-the-attrition-feature-i-will-now-look-to-see-if-there-are-any-numeric-features-that-may-be-able-to-identify-where-the-yes-is-concentrated.-the-next-few-plots-will-seek-to-do-just-that." class="section level4">
+<h4>The pie chart shows that only 16% percent of the employees in this data set have voluntarily left the company. Because only such a small proportion of the data set is “Yes” under the Attrition feature, I will now look to see if there are any numeric features that may be able to identify where the “Yes” is concentrated. The next few plots will seek to do just that.</h4>
+<p><img src="Attrition_files/figure-html/boxplots-1.png" width="672" /><img src="Attrition_files/figure-html/boxplots-2.png" width="672" /><img src="Attrition_files/figure-html/boxplots-3.png" width="672" /></p>
+</div>
+<div id="those-are-three-numerical-features-that-seem-to-have-different-mean-values-between-the-yes-and-the-no-attrition-values.-to-be-sure-i-will-now-perform-a-students-t-test-on-those-three-features." class="section level4">
+<h4>Those are three numerical features that seem to have different mean values between the “Yes” and the “No” Attrition values. To be sure, I will now perform a student’s t test on those three features.</h4>
+<pre class="r"><code># Monthly income of the &quot;Yes&quot;
+attYinc &lt;- df %&gt;% filter(Attrition == &quot;Yes&quot;) %&gt;% select(MonthlyIncome)
+# Monthly income of the &quot;No&quot;
+attNinc &lt;- df %&gt;% filter(Attrition == &quot;No&quot;) %&gt;% select(MonthlyIncome)
+
+t.test(attYinc, attNinc, var.equal = TRUE)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  attYinc and attNinc
+## t = -4.6199, df = 868, p-value = 4.422e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -2760.222 -1114.207
+## sample estimates:
+## mean of x mean of y 
+##  4764.786  6702.000</code></pre>
+<pre class="r"><code># Distance of the &quot;Yes&quot;
+attYDist &lt;- df %&gt;% filter(Attrition == &quot;Yes&quot;) %&gt;% select(DistanceFromHome)
+# Distance of the &quot;No&quot;
+attNDist &lt;- df %&gt;% filter(Attrition == &quot;No&quot;) %&gt;% select(DistanceFromHome)
+
+t.test(attYDist, attNDist)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  attYDist and attNDist
+## t = 2.4218, df = 186.03, p-value = 0.01641
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.3574961 3.4992554
+## sample estimates:
+## mean of x mean of y 
+## 10.957143  9.028767</code></pre>
+<pre class="r"><code># Age of the &quot;Yes&quot;
+attYAge &lt;- df %&gt;% filter(Attrition == &quot;Yes&quot;) %&gt;% select(Age)
+# Age of the &quot;No&quot;
+attNAge &lt;- df %&gt;% filter(Attrition == &quot;No&quot;) %&gt;% select(Age)
+
+t.test(attYAge, attNAge)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  attYAge and attNAge
+## t = -4.1509, df = 184.91, p-value = 5.05e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -5.350324 -1.902905
+## sample estimates:
+## mean of x mean of y 
+##  33.78571  37.41233</code></pre>
+</div>
+<div id="the-monthly-income-data-shows-that-the-income-of-those-who-have-decided-to-voluntarily-leave-the-company-seem-to-be-lower-than-the-no-attrition-group-same-goes-for-the-age-data.-in-contrast-the-distance-from-homw-boxplot-shows-that-the-yes-attrition-group-seem-to-live-on-average-farther-away-from-work-than-those-who-do-not.-now-to-built-a-scatterplot-the-two-features." class="section level4">
+<h4>The Monthly Income data shows that the Income of those who have decided to voluntarily leave the company seem to be lower than the “No” Attrition group, same goes for the Age data. In contrast, the Distance from homw boxplot shows that the “Yes” Attrition group seem to live on average farther away from work than those who do not. Now to built a scatterplot the two features.</h4>
+<p><img src="Attrition_files/figure-html/scatterplot-1.png" width="672" /><img src="Attrition_files/figure-html/scatterplot-2.png" width="672" /></p>
+</div>
+<div id="the-plots-show-that-the-the-monthly-income-and-total-working-years-are-features-that-concentrate-the-people-who-chooses-to-leave-in-the-lower-end-of-both-spectrums.-because-there-are-so-few-data-points-that-represents-the-yes-in-the-attrition-group-features-that-concentrate-those-data-points-near-each-other-can-be-very-useful-when-building-a-classification-model." class="section level4">
+<h4>The plots show that the the monthly income and total working years are features that concentrate the people who chooses to leave in the lower end of both spectrums. Because there are so few data points that represents the “Yes” in the Attrition group, features that concentrate those data points near each other can be very useful when building a classification model.</h4>
+</div>
+<div id="the-classification-model-i-will-build-will-be-a-k-nearest-neighbor.-in-building-this-model-i-will-be-deviding-the-dataset-into-train-and-test-a-70-30-split.-to-be-sure-that-i-will-have-enough-of-the-yes-attrition-category-to-train-and-test-the-model-i-will-pick-70-of-it-to-the-training-set-and-30-of-it-to-the-testing-set.-this-means-that-the-training-set-will-composed-of-70-of-the-entire-no-attrition-as-well-as-70-of-the-yes-attrition.-another-detail-about-building-the-model-is-that-i-will-be-looping-through-15000-different-random-selections-of-the-training-and-testing-data-and-that-loop-will-be-nested-with-another-loop-that-will-test-how-many-k-neighbors-from-1-to-5-would-make-for-a-model-that-will-produce-the-best-specificity.-the-reason-why-i-want-the-best-specificity-is-because-i-want-a-model-that-will-be-able-to-better-detect-the-yes-attritions." class="section level4">
+<h4>The classification model I will build will be a K nearest neighbor. In building this model I will be deviding the dataset into train and test, a 70-30 split. To be sure that I will have enough of the “Yes” Attrition category to train and test the model, I will pick 70% of it to the training set and 30% of it to the testing set. This means that the training set will composed of 70% of the entire “No” Attrition as well as 70% of the “Yes” Attrition. Another detail about building the model is that I will be looping through 15,000 different random selections of the training and testing data, and that loop will be nested with another loop that will test how many k neighbors (from 1 to 5) would make for a model that will produce the best specificity. The reason why I want the best specificity is because I want a model that will be able to better detect the “Yes” Attritions.</h4>
+<p><img src="Attrition_files/figure-html/scoresgraphs-1.png" width="672" /><img src="Attrition_files/figure-html/scoresgraphs-2.png" width="672" /><img src="Attrition_files/figure-html/scoresgraphs-3.png" width="672" /></p>
+<pre class="r"><code># Checking the best k&#39;s in the knn model
+unique(results$k)</code></pre>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="these-features-are-very-good-at-predicting-the-attrition-status-by-simply-have-1-single-k-as-the-nearest-neighbor.-the-models-were-still-able-to-produce-a-significantly-high-specificity-score.-the-reason-why-the-specificity-score-is-so-important-is-because-of-the-way-it-is-calculated.-the-specificity-in-this-case-is-calculated-by-dividing-all-the-predicted-points-that-were-righfully-predicted-as-yes-attrition-by-all-of-the-yes-attrition-present-in-the-testing-data-set." class="section level4">
+<h4>These features are very good at predicting the Attrition status by simply have 1 single k as the nearest neighbor. The models were still able to produce a significantly high specificity score. The reason why the Specificity score is so important is because of the way it is calculated. The specificity in this case is calculated by dividing all the predicted points that were righfully predicted as “Yes” Attrition by all of the “Yes” Attrition present in the testing data set.</h4>
+</div>
+<div id="with-that-we-can-conclude-that-the-monthly-income-and-the-distance-from-home-are-two-factors-that-can-drive-talent-out-of-the-company.-now-i-will-work-on-finding-categorical-features-that-may-seem-to-increase-the-likelihood-of-attrition." class="section level4">
+<h4>With that we can conclude that the monthly income and the distance from home are two factors that can drive talent out of the company. Now I will work on finding categorical features that may seem to increase the likelihood of attrition.</h4>
+</div>
+<div id="next-i-will-use-the-age-feature-and-the-job-level-as-a-categorical-variable-to-create-a-linear-regression-model-that-can-predict-the-monthly-income.-since-i-noticed-earlier-that-the-age-and-the-monthly-income-of-those-who-were-under-the-yes-category-of-the-attrition-feature-were-both-on-average-lower-than-those-who-stay-i-want-to-see-if-age-affects-the-monthly-income." class="section level4">
+<h4>Next I will use the Age feature and the job level, as a categorical variable, to create a linear regression model that can predict the monthly income. Since I noticed earlier that the Age and the Monthly income of those who were under the “Yes” category of the Attrition feature were both on average lower than those who stay, I want to see if Age affects the Monthly Income.</h4>
+<pre><code>## 
+## Call:
+## lm(formula = MonthlyIncome ~ Age + JobLevel, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4718.0  -691.1  -117.1   627.2  4497.6 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2311.241    194.509  11.882   &lt;2e-16 ***
+## Age            13.092      5.498   2.381   0.0175 *  
+## JobLevel2    2755.443    101.398  27.174   &lt;2e-16 ***
+## JobLevel3    7027.611    134.242  52.350   &lt;2e-16 ***
+## JobLevel4   12323.827    193.441  63.708   &lt;2e-16 ***
+## JobLevel5   16283.977    233.603  69.708   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1261 on 864 degrees of freedom
+## Multiple R-squared:  0.9253, Adjusted R-squared:  0.9248 
+## F-statistic:  2139 on 5 and 864 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="with-an-r-squared-of-0.9253-the-variable-in-the-model-explains-over-90-of-the-variation-within-the-monthly-income.-the-residual-standard-error-is-1261." class="section level4">
+<h4>With an R-squared of 0.9253, the variable in the model explains over 90% of the variation within the Monthly income. The residual standard error is $1,261.</h4>
+</div>
+<div id="the-last-insight-from-the-data-will-be-to-check-what-can-affect-the-young-talent-into-deciding-to-leave-the-company.-for-that-i-will-use-data-point-where-the-education-level-is-4-or-5." class="section level4">
+<h4>The last insight from the data will be to check what can affect the young talent into deciding to leave the company. For that, I will use data point where the Education level is 4 or 5.</h4>
+<p><img src="Attrition_files/figure-html/educationboxplots-1.png" width="672" /><img src="Attrition_files/figure-html/educationboxplots-2.png" width="672" /><img src="Attrition_files/figure-html/educationboxplots-3.png" width="672" /></p>
+</div>
+<div id="the-plots-shows-that-despite-being-working-for-the-company-for-approximately-the-same-amount-of-time-the-young-people-with-the-highest-education-levels-have-lower-income-opportunity-than-their-older-peers.-those-could-be-reasons-driving-top-young-talent-to-the-competition." class="section level4">
+<h4>The plots shows that despite being working for the company for approximately the same amount of time, the young people with the highest education levels have lower income opportunity than their older peers. Those could be reasons driving top young talent to the competition.</h4>
+</div>
+</div>
+<div id="conclussion" class="section level2">
+<h2>Conclussion</h2>
+<div id="the-data-does-speak-a-lot-as-to-what-could-be-driving-employees-to-seek-better-opportunities-else-where.-out-of-the-folks-that-has-chosen-to-leave-the-company-they-on-average-are-younger-with-lower-income-who-live-farther-from-the-place-of-work.-perhaps-increasing-those-employees-salary-to-help-with-the-cost-of-moving-closer-or-with-the-cost-of-transportation-could-help-keep-those-employees-hapily-employed-in-the-company.-specially-since-the-young-talent-may-also-include-professionals-with-high-levels-of-education-and-similar-company-experience-as-their-older-counterparts-but-who-may-not-be-feeling-as-respected." class="section level4">
+<h4>The data does speak a lot as to what could be driving employees to seek “better opportunities” else where. Out of the folks that has chosen to leave the company, they on average are younger with lower income who live farther from the place of work. Perhaps increasing those employees salary to help with the cost of moving closer or with the cost of transportation could help keep those employees hapily employed in the company. Specially since the young talent may also include professionals with high levels of education and similar company experience as their older counterparts, but who may not be feeling as respected.</h4>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
